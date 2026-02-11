@@ -24,7 +24,7 @@ if [ -d "$BUILD_PATH" ]; then rm -r $BUILD_PATH; fi
 mkdir -p $BUILD_PATH && cd $BUILD_PATH
 echo "Building libfranka at $BUILD_PATH"
 
-cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=OFF ..
+cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=ON ..
 cmake --build .
 
 cd -
