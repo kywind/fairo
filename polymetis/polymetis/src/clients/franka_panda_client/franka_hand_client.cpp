@@ -2,6 +2,7 @@
 
 #include "spdlog/spdlog.h"
 #include <chrono>
+#include <cmath>
 #include <string>
 #include <thread>
 #include <time.h>
@@ -118,9 +119,29 @@ void FrankaHandClient::run(void) {
         //              gripper_cmd_.width(), gripper_cmd_.speed(), gripper_cmd_.force(),
         //              gripper_cmd_.grasp(), timestamp_ns);
         // applyGripperCommand() in separate thread
-        std::thread th(&FrankaHandClient::applyGripperCommand, this);
-        th.detach();
+        // std::thread th(&FrankaHandClient::applyGripperCommand, this);
+        // th.detach();
         prev_cmd_timestamp_ns_ = timestamp_ns;
+        bool should_execute;
+        if (gripper_cmd_.stop()) {
+          // Always execute stop commands
+          should_execute = true;
+          prev_cmd_width_ = -1.0;  // reset so next grasp/move always runs
+        } else {
+          // Skip grasp/move if target width is close to previous target width:
+          // avoids the ~1s firmware timeout when re-commanding the same position.
+          constexpr double kWidthDeadband = 0.002;  // 2mm
+          should_execute = (prev_cmd_width_ < 0.0 ||
+                            std::abs(gripper_cmd_.width() - prev_cmd_width_) >= kWidthDeadband);
+          if (should_execute) {
+            prev_cmd_width_ = gripper_cmd_.width();
+          }
+        }
+
+        if (should_execute) {
+          std::thread th(&FrankaHandClient::applyGripperCommand, this);
+          th.detach();
+        }
       }
     }
 

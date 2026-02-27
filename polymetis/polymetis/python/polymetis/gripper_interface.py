@@ -137,6 +137,7 @@ class GripperInterface:
             grasp=True,
             epsilon_inner=epsilon_inner,
             epsilon_outer=epsilon_outer,
+            stop=False,
         )
         cmd.timestamp.GetCurrentTime()
 
