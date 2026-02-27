@@ -131,7 +131,7 @@ void FrankaHandClient::run(void) {
           // Skip grasp/move if target width is close to previous target width:
           // avoids the ~1s firmware timeout when re-commanding the same position.
           constexpr double kWidthDeadband = 0.002;  // 2mm
-          should_execute = (prev_cmd_width_ < 0.0 ||
+          should_execute = (prev_cmd_width_ < -0.9 ||
                             std::abs(gripper_cmd_.width() - prev_cmd_width_) >= kWidthDeadband);
           if (should_execute) {
             prev_cmd_width_ = gripper_cmd_.width();
