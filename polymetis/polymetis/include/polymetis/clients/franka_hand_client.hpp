@@ -4,6 +4,9 @@
 #include "polymetis/utils.h"
 #include <grpcpp/grpcpp.h>
 
+#include <atomic>
+#include <mutex>
+
 #include <franka/gripper.h>
 #include <franka/gripper_state.h>
 
@@ -15,6 +18,7 @@
 
 class FrankaHandClient {
 private:
+  void stateThread(void);
   void getGripperState(void);
   void applyGripperCommand(void);
 
@@ -30,7 +34,11 @@ private:
 
   // Franka
   std::shared_ptr<franka::Gripper> gripper_;
-  bool is_moving_;
+  std::atomic<bool> is_moving_{false};
+
+  // Cached state from background thread
+  franka::GripperState cached_franka_state_{};
+  std::mutex state_mutex_;
 
 public:
   FrankaHandClient(std::shared_ptr<grpc::Channel> channel, YAML::Node config);

@@ -40,9 +40,29 @@ FrankaHandClient::FrankaHandClient(std::shared_ptr<grpc::Channel> channel,
   spdlog::info("Connected.", robot_ip);
 }
 
+void FrankaHandClient::stateThread(void) {
+  // Continuously calls readOnce() in the background so the main control loop
+  // is not blocked waiting for the ~100ms firmware UDP broadcast interval.
+  while (true) {
+    // auto t0 = std::chrono::steady_clock::now();
+    franka::GripperState s = gripper_->readOnce();
+    // auto t1 = std::chrono::steady_clock::now();
+    // double readonce_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
+    // spdlog::warn("[profile] readOnce took {:.1f} ms", readonce_ms);
+
+    std::lock_guard<std::mutex> lk(state_mutex_);
+    cached_franka_state_ = s;
+  }
+}
+
 void FrankaHandClient::getGripperState(void) {
   // auto t0 = std::chrono::steady_clock::now();
-  franka::GripperState franka_gripper_state = gripper_->readOnce();
+  franka::GripperState franka_gripper_state;
+  {
+    // Read from cache populated by stateThread — does not block.
+    std::lock_guard<std::mutex> lk(state_mutex_);
+    franka_gripper_state = cached_franka_state_;
+  }
   // auto t1 = std::chrono::steady_clock::now();
   // double readonce_ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
   // spdlog::warn("[profile] readOnce took {:.1f} ms (> 5 ms)", readonce_ms);
@@ -93,6 +113,10 @@ void FrankaHandClient::run(void) {
   int period_ns = period * 1.0e9;
 
   int timestamp_ns;
+
+  // Start background thread that continuously calls readOnce() into the cache.
+  std::thread state_th(&FrankaHandClient::stateThread, this);
+  state_th.detach();
 
   struct timespec abs_target_time;
   clock_gettime(CLOCK_REALTIME, &abs_target_time);
