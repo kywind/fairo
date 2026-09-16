@@ -14,7 +14,7 @@ robot_client:
     hz: ${hz}
     robot_model_cfg: ${robot_model}
   executable_cfg:
-    robot_ip: "192.168.0.239"
+    robot_ip: "128.59.17.200"
     control_ip: ${ip}
     control_port: ${port}
     readonly: false
@@ -39,23 +39,23 @@ robot_client:
         - -1.0
         - -1.0
 
-      # the remaining limits are set to the original franka limits minus a margin
-      joint_pos_upper: #margin: 0.1 rad
-        - 2.65
-        - 1.68
-        - 2.80
-        - -0.16
-        - 2.70
-        - 4.40
-        - 2.90
-      joint_pos_lower: #margin: 0.1 rad
-        - -2.65
-        - -1.68
-        - -2.80
-        - -2.95
-        - -2.70
-        - 0.45
-        - -2.90
+      # FR3v2 position bounds from the connected robot; existing speed and torque caps retained
+      joint_pos_upper: # Robot-provided FR3v2 bounds; soft margin retained.
+        - 2.9007400166666666
+        - 1.8360900166666667
+        - 2.9007400166666666
+        - -0.11693708333333333
+        - 2.87630335
+        - 4.62163335
+        - 3.05083335
+      joint_pos_lower: # Robot-provided FR3v2 bounds; soft margin retained.
+        - -2.9007400166666666
+        - -1.8360900166666667
+        - -2.9007400166666666
+        - -3.077020016666667
+        - -2.87630335
+        - 0.43982265
+        - -3.05083335
       joint_vel: #margin: 0.1 rad/s
         - 2.075
         - 2.075
