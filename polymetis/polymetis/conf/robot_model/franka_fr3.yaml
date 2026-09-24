@@ -1,6 +1,6 @@
 # @package _group_
 # FR3v2 model queried from this robot via libfranka getRobotModel().
-robot_description_path: franka_fr3/fr3_arm.urdf
+robot_description_path: franka_fr3_d405/fr3v2_franka_hand_d405_polymetis.urdf
 controlled_joints:
 - 0
 - 1

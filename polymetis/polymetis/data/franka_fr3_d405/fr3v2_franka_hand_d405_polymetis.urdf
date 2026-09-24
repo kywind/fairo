@@ -1,0 +1,523 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="franka_hand_d405">
+  <link name="base">
+      </link>
+  <joint name="base_joint" type="fixed">
+    <parent link="base" />
+    <child link="link0" />
+    <origin rpy="0 0 0" xyz="0 0 0" />
+  </joint>
+  <link name="link0">
+    <visual name="link0_visual">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/visual/link0.dae" />
+      </geometry>
+    </visual>
+    <collision name="link0_collision">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/collision/link0.stl" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.017200 0.000400 0.074500" />
+      <mass value="2.3966" />
+      <inertia ixx="0.009" ixy="0.0" ixz="0.002" iyy="0.0115" iyz="0.0" izz="0.0085" />
+    </inertial>
+  </link>
+  <link name="link0_accelerometer_top">
+      </link>
+  <joint name="link0_accelerometer_top_joint" type="fixed">
+    <origin rpy="3.1416 0.0 0.0" xyz="-0.017402 -0.007872 0.04715" />
+    <parent link="link0" />
+    <child link="link0_accelerometer_top" />
+  </joint>
+  <link name="link0_accelerometer_bottom">
+      </link>
+  <joint name="link0_accelerometer_bottom_joint" type="fixed">
+    <origin rpy="0.0 0.0 -1.5708" xyz="-0.019739 0.0015506 0.05075" />
+    <parent link="link0" />
+    <child link="link0_accelerometer_bottom" />
+  </joint>
+  <link name="link1">
+    <visual name="link1_visual">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/visual/link1.dae" />
+      </geometry>
+    </visual>
+    <collision name="link1_collision">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/collision/link1.stl" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.004580 0.027016 -0.061800" />
+      <mass value="2.4377" />
+      <inertia ixx="0.02324" ixy="0.000333" ixz="-0.000676" iyy="0.02146" iyz="0.003739" izz="0.0055" />
+    </inertial>
+  </link>
+  <link name="link1_accelerometer_top">
+      </link>
+  <joint name="link1_accelerometer_top_joint" type="fixed">
+    <origin rpy="-1.5708 0.0 3.1416" xyz="0.017402 -0.093352 -0.00787" />
+    <parent link="link1" />
+    <child link="link1_accelerometer_top" />
+  </joint>
+  <link name="link1_accelerometer_bottom">
+      </link>
+  <joint name="link1_accelerometer_bottom_joint" type="fixed">
+    <origin rpy="-1.5708 1.5708 0.0" xyz="0.01974 -0.08975 0.00155" />
+    <parent link="link1" />
+    <child link="link1_accelerometer_bottom" />
+  </joint>
+  <joint name="joint1" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.333" />
+    <parent link="link0" />
+    <child link="link1" />
+    <axis xyz="0 0 1" />
+    <limit effort="87.0" lower="-2.9007400166666666" upper="2.9007400166666666" velocity="2.62" />
+    <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-2.9007400166666666" soft_upper_limit="2.9007400166666666" />
+    <position_based_velocity_limits deceleration_limit="6.0" velocity_offset="0.6520000381679385" />
+    <dynamics D="1" K="7000" damping="0.003" friction="0.2" gear_ratio="120.0" motor_inertia="4.206399e-05" mu_coulomb="0" mu_viscous="16" />
+  </joint>
+  <link name="link2">
+    <visual name="link2_visual">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/visual/link2.dae" />
+      </geometry>
+    </visual>
+    <collision name="link2_collision">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/collision/link2.stl" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.004541 -0.180691 -0.010479" />
+      <mass value="2.2375" />
+      <inertia ixx="0.019026" ixy="0.001241" ixz="0.000499" iyy="0.00566" iyz="-0.001804" izz="0.017114" />
+    </inertial>
+  </link>
+  <link name="link2_accelerometer_top">
+      </link>
+  <joint name="link2_accelerometer_top_joint" type="fixed">
+    <origin rpy="1.5708 0.0 3.1416" xyz="0.017403 -0.11515 0.00787" />
+    <parent link="link2" />
+    <child link="link2_accelerometer_top" />
+  </joint>
+  <link name="link2_accelerometer_bottom">
+      </link>
+  <joint name="link2_accelerometer_bottom_joint" type="fixed">
+    <origin rpy="1.5708 -1.5708 0.0" xyz="0.019737 -0.11875 -0.00155" />
+    <parent link="link2" />
+    <child link="link2_accelerometer_bottom" />
+  </joint>
+  <joint name="joint2" type="revolute">
+    <origin rpy="-1.570796326794897 0 0" xyz="0 0 0" />
+    <parent link="link1" />
+    <child link="link2" />
+    <axis xyz="0 0 1" />
+    <limit effort="87.0" lower="-1.8360900166666667" upper="1.8360900166666667" velocity="2.62" />
+    <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-1.8360900166666667" soft_upper_limit="1.8360900166666667" />
+    <position_based_velocity_limits deceleration_limit="2.585" velocity_offset="0.2499685851463105" />
+    <dynamics D="1" K="7000" damping="0.003" friction="0.2" gear_ratio="120.0" motor_inertia="4.206399e-05" mu_coulomb="0" mu_viscous="16" />
+  </joint>
+  <link name="link3">
+    <visual name="link3_visual">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/visual/link3.dae" />
+      </geometry>
+    </visual>
+    <collision name="link3_collision">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/collision/link3.stl" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.082540 0.019082 0.042027" />
+      <mass value="2.193082" />
+      <inertia ixx="0.010225" ixy="0.001144" ixz="0.003497" iyy="0.012398" iyz="0.002156" izz="0.006877" />
+    </inertial>
+  </link>
+  <link name="link3_accelerometer_top">
+      </link>
+  <joint name="link3_accelerometer_top_joint" type="fixed">
+    <origin rpy="-1.5708 0.0 0.0" xyz="0.065099 0.077352 -0.00787" />
+    <parent link="link3" />
+    <child link="link3_accelerometer_top" />
+  </joint>
+  <link name="link3_accelerometer_bottom">
+      </link>
+  <joint name="link3_accelerometer_bottom_joint" type="fixed">
+    <origin rpy="1.5708 1.5708 0.0" xyz="0.062769 0.073756 0.00155" />
+    <parent link="link3" />
+    <child link="link3_accelerometer_bottom" />
+  </joint>
+  <joint name="joint3" type="revolute">
+    <origin rpy="1.570796326794897 0 0" xyz="0 -0.316 0" />
+    <parent link="link2" />
+    <child link="link3" />
+    <axis xyz="0 0 1" />
+    <limit effort="87.0" lower="-2.9007400166666666" upper="2.9007400166666666" velocity="2.62" />
+    <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-2.9007400166666666" soft_upper_limit="2.9007400166666666" />
+    <position_based_velocity_limits deceleration_limit="3.5" velocity_offset="0.20053055661577582" />
+    <dynamics D="1" K="7000" damping="0.003" friction="0.2" gear_ratio="120.0" motor_inertia="3.211626e-05" mu_coulomb="0" mu_viscous="16" />
+  </joint>
+  <link name="link4">
+    <visual name="link4_visual">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/visual/link4.dae" />
+      </geometry>
+    </visual>
+    <collision name="link4_collision">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/collision/link4.stl" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.087533 0.096335 0.010120" />
+      <mass value="2.181537" />
+      <inertia ixx="0.008878" ixy="-0.003749" ixz="0.001139" iyy="0.007628" iyz="-0.00046" izz="0.010295" />
+    </inertial>
+  </link>
+  <link name="link4_accelerometer_top">
+      </link>
+  <joint name="link4_accelerometer_top_joint" type="fixed">
+    <origin rpy="-1.5708 0.0 -3.1416" xyz="-0.0651 0.046152 -0.00787" />
+    <parent link="link4" />
+    <child link="link4_accelerometer_top" />
+  </joint>
+  <link name="link4_accelerometer_bottom">
+      </link>
+  <joint name="link4_accelerometer_bottom_joint" type="fixed">
+    <origin rpy="-1.5708 1.5708 0.0" xyz="-0.062775 0.049753 0.00155" />
+    <parent link="link4" />
+    <child link="link4_accelerometer_bottom" />
+  </joint>
+  <joint name="joint4" type="revolute">
+    <origin rpy="1.570796326794897 0 0" xyz="0.0825 0 0" />
+    <parent link="link3" />
+    <child link="link4" />
+    <axis xyz="0 0 1" />
+    <limit effort="87.0" lower="-3.077020016666667" upper="-0.11693708333333333" velocity="2.62" />
+    <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-3.077020016666667" soft_upper_limit="-0.11693708333333333" />
+    <position_based_velocity_limits deceleration_limit="4.0" velocity_offset="0.3542181933842238" />
+    <dynamics D="1" K="7000" damping="0.003" friction="0.2" gear_ratio="120.0" motor_inertia="3.211626e-05" mu_coulomb="0" mu_viscous="16" />
+  </joint>
+  <link name="link5">
+    <visual name="link5_visual">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/visual/link5.dae" />
+      </geometry>
+    </visual>
+    <collision name="link5_collision">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/collision/link5.stl" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.008383 0.010180 -0.053265" />
+      <mass value="2.186881" />
+      <inertia ixx="0.031874" ixy="0.000134" ixz="-0.000265" iyy="0.029674" iyz="-0.004734" izz="0.004751" />
+    </inertial>
+  </link>
+  <link name="link5_accelerometer_top">
+      </link>
+  <joint name="link5_accelerometer_top_joint" type="fixed">
+    <origin rpy="-1.5708 0.0 0.0" xyz="-0.017363 0.085872 -0.00795" />
+    <parent link="link5" />
+    <child link="link5_accelerometer_top" />
+  </joint>
+  <link name="link5_accelerometer_bottom">
+      </link>
+  <joint name="link5_accelerometer_bottom_joint" type="fixed">
+    <origin rpy="1.5708 1.5708 0.0" xyz="-0.019742 0.082275 0.00146" />
+    <parent link="link5" />
+    <child link="link5_accelerometer_bottom" />
+  </joint>
+  <joint name="joint5" type="revolute">
+    <origin rpy="-1.570796326794897 0 0" xyz="-0.0825 0.384 0" />
+    <parent link="link4" />
+    <child link="link5" />
+    <axis xyz="0 0 1" />
+    <limit effort="12.0" lower="-2.87630335" upper="2.87630335" velocity="5.26" />
+    <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-2.87630335" soft_upper_limit="2.87630335" />
+    <position_based_velocity_limits deceleration_limit="17.0" velocity_offset="0.5738321197718637" />
+    <dynamics D="1" K="7000" damping="0.003" friction="0.2" gear_ratio="80.0" motor_inertia="3.211626e-05" mu_coulomb="0" mu_viscous="16" />
+  </joint>
+  <link name="link6">
+    <visual name="link6_visual">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/visual/link6.dae" />
+      </geometry>
+    </visual>
+    <collision name="link6_collision">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/collision/link6.stl" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.070391 -0.016074 -0.035025" />
+      <mass value="1.579681" />
+      <inertia ixx="0.00286" ixy="-0.000553" ixz="-0.000638" iyy="0.00391" iyz="-0.00024" izz="0.00453" />
+    </inertial>
+  </link>
+  <joint name="joint6" type="revolute">
+    <origin rpy="1.570796326794897 0 0" xyz="0 0 0" />
+    <parent link="link5" />
+    <child link="link6" />
+    <axis xyz="0 0 1" />
+    <limit effort="12.0" lower="0.43982265" upper="4.62163335" velocity="4.18" />
+    <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="0.43982265" soft_upper_limit="4.62163335" />
+    <position_based_velocity_limits deceleration_limit="5.5" velocity_offset="0.4884649342105264" />
+    <dynamics D="1" K="7000" damping="0.003" friction="0.2" gear_ratio="80.0" motor_inertia="3.211626e-05" mu_coulomb="0" mu_viscous="16" />
+  </joint>
+  <link name="link7">
+    <visual name="link7_visual">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/visual/link7.dae" />
+      </geometry>
+    </visual>
+    <collision name="link7_collision">
+      <geometry>
+        <mesh filename="meshes/robots/fr3v2/collision/link7.stl" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.009108 0.018151 0.064946" />
+      <mass value="0.694841" />
+      <inertia ixx="0.000899" ixy="0.0" ixz="-1.3e-05" iyy="0.001099" iyz="-2.2e-05" izz="0.000702" />
+    </inertial>
+  </link>
+  <joint name="joint7" type="revolute">
+    <origin rpy="1.570796326794897 0 0" xyz="0.088 0 0" />
+    <parent link="link6" />
+    <child link="link7" />
+    <axis xyz="0 0 1" />
+    <limit effort="12.0" lower="-3.05083335" upper="3.05083335" velocity="5.26" />
+    <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-3.05083335" soft_upper_limit="3.05083335" />
+    <position_based_velocity_limits deceleration_limit="17.0" velocity_offset="0.4591952376425851" />
+    <dynamics D="1" K="7000" damping="0.003" friction="0.2" gear_ratio="80.0" motor_inertia="3.211626e-05" mu_coulomb="0" mu_viscous="16" />
+  </joint>
+  <link name="link8" />
+  <joint name="joint8" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.107" />
+    <parent link="link7" />
+    <child link="link8" />
+  </joint>
+  <joint name="hand_joint" type="fixed">
+    <parent link="link8" />
+    <child link="hand" />
+    <origin rpy="0 0 -0.7853981633974483" xyz="0 0 0" />
+  </joint>
+  <link name="hand">
+    <visual name="hand_visual">
+      <geometry>
+        <mesh filename="meshes/robot_ee/franka_hand_white/visual/hand.dae" />
+      </geometry>
+    </visual>
+    <collision name="hand_collision">
+      <geometry>
+        <mesh filename="meshes/robot_ee/franka_hand_white/collision/hand.stl" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0000376 0.0119128 0.0207260" />
+      <mass value="0.6544" />
+      <inertia ixx="0.00186" ixy="0.0" ixz="0.0" iyy="0.0003" iyz="-2e-05" izz="0.00174" />
+    </inertial>
+  </link>
+  <link name="hand_tcp" />
+  <joint name="hand_tcp_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.1034" />
+    <parent link="hand" />
+    <child link="hand_tcp" />
+  </joint>
+  <link name="leftfinger">
+    <visual name="leftfinger_visual">
+      <geometry>
+        <mesh filename="meshes/robot_ee/franka_hand_white/visual/finger.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 18.5e-3 11e-3" />
+      <geometry>
+        <box size="22e-3 15e-3 20e-3" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 6.8e-3 2.2e-3" />
+      <geometry>
+        <box size="22e-3 8.8e-3 3.8e-3" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin rpy="0.5235987755982988 0 0" xyz="0 15.9e-3 28.35e-3" />
+      <geometry>
+        <box size="17.5e-3 7e-3 23.5e-3" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 7.58e-3 45.25e-3" />
+      <geometry>
+        <box size="17.5e-3 15.2e-3 18.5e-3" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0.0152850 0.0219675" />
+      <mass value="0.0291" />
+      <inertia ixx="8.49e-06" ixy="0.0" ixz="0.0" iyy="8.53e-06" iyz="-1.06e-06" izz="1.77e-06" />
+    </inertial>
+  </link>
+  <link name="rightfinger">
+    <visual name="rightfinger_visual">
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="meshes/robot_ee/franka_hand_white/visual/finger.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 18.5e-3 11e-3" />
+      <geometry>
+        <box size="22e-3 15e-3 20e-3" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 6.8e-3 2.2e-3" />
+      <geometry>
+        <box size="22e-3 8.8e-3 3.8e-3" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin rpy="-0.5235987755982988 0 3.141592653589793" xyz="0 15.9e-3 28.35e-3" />
+      <geometry>
+        <box size="17.5e-3 7e-3 23.5e-3" />
+      </geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 7.58e-3 45.25e-3" />
+      <geometry>
+        <box size="17.5e-3 15.2e-3 18.5e-3" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0.0152850 0.0219675" />
+      <mass value="0.0291" />
+      <inertia ixx="8.49e-06" ixy="0.0" ixz="0.0" iyy="8.53e-06" iyz="-1.06e-06" izz="1.77e-06" />
+    </inertial>
+  </link>
+  <joint name="finger_joint1" type="fixed">
+    <parent link="hand" />
+    <child link="leftfinger" />
+    <origin rpy="0 0 0" xyz="0 0.04 0.0584" />
+  </joint>
+  <joint name="finger_joint2" type="fixed">
+    <parent link="hand" />
+    <child link="rightfinger" />
+    <origin rpy="0 0 3.141592653589793" xyz="-4.89858719659e-18 -0.04 0.0584" />
+  </joint>
+  <link name="d405_mount">
+    <visual name="d405_mount_visual">
+      <geometry>
+        <mesh filename="meshes/mounts/franka_d405_mount.stl" />
+      </geometry>
+      <material name="mount_white">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision name="d405_mount_collision">
+      <geometry>
+        <mesh filename="meshes/mounts/franka_d405_mount.stl" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0.0213874400581 0.0238893037894 0.020997237781" rpy="0 0 0" />
+      <mass value="0.02065" />
+      <inertia ixx="8.66150025973e-06" ixy="1.41004979596e-06" ixz="5.61640913155e-10" iyy="6.04742026134e-06" iyz="-1.34228072787e-09" izz="8.34683605864e-06" />
+    </inertial>
+  </link>
+  <joint name="d405_mount_joint" type="fixed">
+    <parent link="hand" />
+    <child link="d405_mount" />
+    <origin xyz="0.0159533845544 0.0191730606828 0.0501062889955" rpy="-2.06085313137 1.55392420756 2.64304846522" />
+  </joint>
+  <link name="d405_bottom_screw_frame" />
+  <joint name="d405_bottom_screw_joint" type="fixed">
+    <parent link="d405_mount" />
+    <child link="d405_bottom_screw_frame" />
+    <origin xyz="0.00165 0.023 0.021" rpy="1.57079632679 0 3.14159265359" />
+  </joint>
+  <link name="d405_link">
+    <visual name="d405_visual">
+      <origin xyz="0.0038 -0.009 0" rpy="1.57079632679 0 1.57079632679" />
+      <geometry>
+        <mesh filename="meshes/sensors/d405.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="d405_dark_aluminum">
+        <color rgba="0.22 0.23 0.25 1" />
+      </material>
+    </visual>
+    <collision name="d405_case_collision">
+      <origin xyz="-0.0077 -0.009 -2.55351295664e-18" rpy="0 0 0" />
+      <geometry>
+        <box size="0.023 0.042 0.042" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="-0.0077 -0.009 -2.55351295664e-18" rpy="0 0 0" />
+      <mass value="0.06" />
+      <inertia ixx="1.764e-05" ixy="0" ixz="0" iyy="1.1465e-05" iyz="0" izz="1.1465e-05" />
+    </inertial>
+  </link>
+  <joint name="d405_link_joint" type="fixed">
+    <parent link="d405_bottom_screw_frame" />
+    <child link="d405_link" />
+    <origin xyz="0.01085 0.009 0.021" rpy="0 0 0" />
+  </joint>
+  <link name="d405_depth_frame" />
+  <link name="d405_depth_optical_frame" />
+  <joint name="d405_depth_joint" type="fixed">
+    <parent link="d405_link" />
+    <child link="d405_depth_frame" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  <joint name="d405_depth_optical_joint" type="fixed">
+    <parent link="d405_depth_frame" />
+    <child link="d405_depth_optical_frame" />
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679" />
+  </joint>
+  <link name="d405_infra1_frame" />
+  <link name="d405_infra1_optical_frame" />
+  <joint name="d405_infra1_joint" type="fixed">
+    <parent link="d405_link" />
+    <child link="d405_infra1_frame" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  <joint name="d405_infra1_optical_joint" type="fixed">
+    <parent link="d405_infra1_frame" />
+    <child link="d405_infra1_optical_frame" />
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679" />
+  </joint>
+  <link name="d405_infra2_frame" />
+  <link name="d405_infra2_optical_frame" />
+  <joint name="d405_infra2_joint" type="fixed">
+    <parent link="d405_link" />
+    <child link="d405_infra2_frame" />
+    <origin xyz="0 -0.018 0" rpy="0 0 0" />
+  </joint>
+  <joint name="d405_infra2_optical_joint" type="fixed">
+    <parent link="d405_infra2_frame" />
+    <child link="d405_infra2_optical_frame" />
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679" />
+  </joint>
+  <link name="d405_color_frame" />
+  <link name="d405_color_optical_frame" />
+  <joint name="d405_color_joint" type="fixed">
+    <parent link="d405_link" />
+    <child link="d405_color_frame" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  <joint name="d405_color_optical_joint" type="fixed">
+    <parent link="d405_color_frame" />
+    <child link="d405_color_optical_frame" />
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679" />
+  </joint>
+</robot>

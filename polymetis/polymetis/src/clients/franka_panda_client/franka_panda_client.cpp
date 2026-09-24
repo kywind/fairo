@@ -3,6 +3,7 @@
 // This source code is licensed under the MIT license found in the
 // LICENSE file in the root directory of this source tree.
 #include "polymetis/clients/franka_panda_client.hpp"
+#include "payload_config.hpp"
 
 #include "real_time.hpp"
 #include "spdlog/spdlog.h"
@@ -49,6 +50,13 @@ FrankaTorqueControlClient::FrankaTorqueControlClient(
   if (!mock_franka_) {
     spdlog::info("Connecting to Franka Emika...");
     robot_ptr_.reset(new franka::Robot(config["robot_ip"].as<std::string>()));
+    // The robot supplies gravity internally; configure only the added tool load.
+    if (!readonly_mode_ && config["payload"] &&
+        config["payload"]["enabled"].as<bool>(false)) {
+      const auto payload_state = configured_payload::apply(*robot_ptr_, config["payload"]);
+      spdlog::info("Verified payload: hand={} kg, added={} kg, total={} kg",
+                   payload_state.m_ee, payload_state.m_load, payload_state.m_total);
+    }
     model_ptr_.reset(new franka::Model(robot_ptr_->loadModel()));
     spdlog::info("Connected.");
   } else {

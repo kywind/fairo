@@ -7,10 +7,10 @@ robot_client:
   use_real_time: ${use_real_time}
   metadata_cfg:
     _target_: polymetis.robot_client.metadata.RobotClientMetadata
-    default_Kq: [40, 30, 50, 25, 35, 25, 10]
-    default_Kqd: [4, 6, 5, 5, 3, 2, 1]
-    default_Kx: [400, 400, 400, 15, 15, 15]
-    default_Kxd: [37, 37, 37, 2, 2, 2]
+    default_Kq: [80, 60, 100, 50, 70, 50, 20]
+    default_Kqd: [5.656854249492381, 8.485281374238571, 7.0710678118654755, 7.0710678118654755, 4.242640687119286, 2.8284271247461903, 1.4142135623730951]
+    default_Kx: [800, 800, 800, 30, 30, 30]
+    default_Kxd: [52.32590180780452, 52.32590180780452, 52.32590180780452, 2.8284271247461903, 2.8284271247461903, 2.8284271247461903]
     hz: ${hz}
     robot_model_cfg: ${robot_model}
   executable_cfg:
@@ -24,6 +24,41 @@ robot_client:
     num_dofs: ${robot_model.num_dofs}
     exec: ${exec}
     robot_client_metadata_path: ???
+    # Camera/mount only; stock hand remains in Desk. Exact symmetric inertia, column-major.
+    payload:
+      enabled: true
+      mass: 0.08065
+      com:
+      - 0.03707881250596734
+      - -0.0400727506462488
+      - 0.04500162992071231
+      inertia:
+      - 2.9834354643122414e-05
+      - 4.37994973819311e-06
+      - -5.861781270419889e-06
+      - 4.37994973819311e-06
+      - 2.954715709586219e-05
+      - 5.979785605770485e-06
+      - -5.861781270419889e-06
+      - 5.979785605770485e-06
+      - 3.27658258054975e-05
+      expected_ee_mass: 0.73
+      expected_ee_com:
+      - -0.01
+      - 0
+      - 0.03
+      expected_ee_inertia:
+      - 0.001
+      - 0
+      - 0
+      - 0
+      - 0.0025
+      - 0
+      - 0
+      - 0
+      - 0.0017
+      source_urdf_sha256: 4312edee3ccf54ce78e1e36408ed2ec6a4fd12df88e056853e1ed3565bed3e7c
+
 
     limit_rate: true
     lpf_cutoff_frequency: 100
